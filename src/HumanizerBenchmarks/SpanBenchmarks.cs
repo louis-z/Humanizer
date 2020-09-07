@@ -3,7 +3,7 @@ using Humanizer;
 
 namespace HumanizerBenchmarks
 {
-    //[MemoryDiagnoser]
+    [MemoryDiagnoser]
     [Config(typeof(HumanizerConfig))]
     public class SpanBenchmarks
     {
