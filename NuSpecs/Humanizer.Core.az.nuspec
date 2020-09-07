@@ -18,7 +18,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Humanizer\bin\Release\netstandard1.0\az\*.*" target="lib\netstandard1.0\az" />
+    <file src="Humanizer\bin\Release\netstandard1.1\az\*.*" target="lib\netstandard1.1\az" />
     <file src="Humanizer\bin\Release\netstandard2.0\az\*.*" target="lib\netstandard2.0\az" />
     <file src="..\logo.png" target="logo.png" />
   </files>

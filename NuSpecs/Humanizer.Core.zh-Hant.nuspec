@@ -18,7 +18,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Humanizer\bin\Release\netstandard1.0\zh-Hant\*.*" target="lib\netstandard1.0\zh-Hant" />
+    <file src="Humanizer\bin\Release\netstandard1.1\zh-Hant\*.*" target="lib\netstandard1.1\zh-Hant" />
     <file src="Humanizer\bin\Release\netstandard2.0\zh-Hant\*.*" target="lib\netstandard2.0\zh-Hant" />
     <file src="..\logo.png" target="logo.png" />
   </files>

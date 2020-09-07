@@ -14,15 +14,15 @@
     <language>en</language>
     <repository type="$RepositoryType$" url="$RepositoryUrl$" commit="$RepositoryCommit$" />
     <dependencies>
-      <group targetFramework="netstandard1.0">
+      <group targetFramework="netstandard1.1">
         <dependency id="NETStandard.Library" version="1.6.1" />
       </group>
       <group targetFramework="netstandard2.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Humanizer\bin\Release\netstandard1.0\*.dll" target="lib\netstandard1.0" />
-    <file src="Humanizer\bin\Release\netstandard1.0\*.xml" target="lib\netstandard1.0" />
+    <file src="Humanizer\bin\Release\netstandard1.1\*.dll" target="lib\netstandard1.1" />
+    <file src="Humanizer\bin\Release\netstandard1.1\*.xml" target="lib\netstandard1.1" />
     <file src="Humanizer\bin\Release\netstandard2.0\*.dll" target="lib\netstandard2.0" />
     <file src="Humanizer\bin\Release\netstandard2.0\*.xml" target="lib\netstandard2.0" />
     <file src="..\logo.png" target="logo.png" />
