@@ -20,8 +20,12 @@ namespace Humanizer
             var span = input.AsSpan();
             var wordEnumerator = new WordEnumerator(span);
 
-            var titlizedWords = input.Split(' ').Select(word => word.Humanize(LetterCasing.Title));
-            return string.Join("", titlizedWords).Replace(" ", "");
+            foreach (var word in wordEnumerator)
+            {
+                strBuilder.Append(word.ToString().Humanize(LetterCasing.Title));
+            }
+
+            return strBuilder.ToString().Replace(" ", "");
         }
     }
 }
