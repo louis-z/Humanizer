@@ -82,10 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpecs", "NuSpecs", "{AA44
 		..\NuSpecs\Humanizer.nuspec = ..\NuSpecs\Humanizer.nuspec
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanizerBenchmarks", "HumanizerBenchmarks\HumanizerBenchmarks.csproj", "{F52BDAA0-C297-4B75-8BE3-486AB68C0548}"
-	ProjectSection(ProjectDependencies) = postProject
-		{511A7984-F455-4A6E-ADB9-9CAAC47EA079} = {511A7984-F455-4A6E-ADB9-9CAAC47EA079}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks", "Humanizer.Benchmarks\Humanizer.Benchmarks.csproj", "{F52BDAA0-C297-4B75-8BE3-486AB68C0548}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

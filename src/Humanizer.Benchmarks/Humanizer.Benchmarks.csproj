@@ -12,6 +12,12 @@
     <PackageReference Include="Humanizer.Core" Version="2.8.26" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Humanizer\Humanizer.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="MakeDummyNuGetPackage.bat" />
   </Target>
