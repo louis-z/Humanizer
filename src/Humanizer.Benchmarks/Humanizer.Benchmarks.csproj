@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="MakeDummyNuGetPackage.bat" />
+    <Exec Command="CreateFakeNuGetPackage.bat $(ConfigurationName)" />
   </Target>
 
 </Project>
