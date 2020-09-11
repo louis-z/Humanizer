@@ -4,7 +4,6 @@ using Humanizer;
 namespace HumanizerBenchmarks
 {
     [MemoryDiagnoser]
-    [Config(typeof(HumanizerConfig))]
     public class SpanBenchmarks
     {
         private const string MyText = @"
@@ -52,8 +51,8 @@ sed viverra tellus. Euismod quis viverra nibh cras pulvinar mattis nunc sed blan
 aliquam sem. Habitant morbi tristique senectus et netus et malesuada. Consectetur adipiscing elit duis tristique
 sollicitudin nibh sit amet commodo.";
 
-        [Benchmark]
-        public void Dehumanize()
+        [Benchmark(Baseline = true)]
+        public void Humanize()
         {
             MyText.Humanize();
         }

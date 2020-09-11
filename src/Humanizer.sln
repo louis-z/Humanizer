@@ -82,7 +82,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpecs", "NuSpecs", "{AA44
 		..\NuSpecs\Humanizer.nuspec = ..\NuSpecs\Humanizer.nuspec
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks", "Humanizer.Benchmarks\Humanizer.Benchmarks.csproj", "{F52BDAA0-C297-4B75-8BE3-486AB68C0548}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks.NuGet", "Humanizer.Benchmarks.NuGet\Humanizer.Benchmarks.NuGet.csproj", "{F52BDAA0-C297-4B75-8BE3-486AB68C0548}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks.Local", "Humanizer.Benchmarks.Local\Humanizer.Benchmarks.Local.csproj", "{5DE46832-29AF-428B-95FA-369FBB3681D8}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -147,6 +149,22 @@ Global
 		{F52BDAA0-C297-4B75-8BE3-486AB68C0548}.Release|x64.Build.0 = Release|Any CPU
 		{F52BDAA0-C297-4B75-8BE3-486AB68C0548}.Release|x86.ActiveCfg = Release|Any CPU
 		{F52BDAA0-C297-4B75-8BE3-486AB68C0548}.Release|x86.Build.0 = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|x64.Build.0 = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|ARM.Build.0 = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x64.ActiveCfg = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x64.Build.0 = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
