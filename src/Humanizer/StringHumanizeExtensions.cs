@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Buffers;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Humanizer
@@ -9,31 +11,95 @@ namespace Humanizer
     public static class StringHumanizeExtensions
     {
         private static readonly Regex PascalCaseWordPartsRegex;
-        private static readonly Regex FreestandingSpacingCharRegex;
 
         static StringHumanizeExtensions()
         {
             PascalCaseWordPartsRegex = new Regex(@"[\p{Lu}]?[\p{Ll}]+|[0-9]+[\p{Ll}]*|[\p{Lu}]+(?=[\p{Lu}][\p{Ll}]|[0-9]|\b)|[\p{Lo}]+",
                 RegexOptions.IgnorePatternWhitespace | RegexOptions.ExplicitCapture | RegexOptionsUtil.Compiled);
-            FreestandingSpacingCharRegex = new Regex(@"\s[-_]|[-_]\s", RegexOptionsUtil.Compiled);
         }
 
-        private static string FromUnderscoreDashSeparatedWords(string input)
+        private static string FromUnderscoreDashSeparatedWords(ReadOnlySpan<char> input)
         {
-            return string.Join(" ", input.Split(new[] { '_', '-' }));
+            var buffer = ArrayPool<char>.Shared.Rent(input.Length);
+            try
+            {
+                for (var i = 0; i < input.Length; i++)
+                    buffer[i] = (input[i] == '_' || input[i] == '-') ? ' ' : input[i];
+                return new string(buffer, 0, input.Length);
+            }
+            finally
+            {
+                ArrayPool<char>.Shared.Return(buffer);
+            }
         }
 
         private static string FromPascalCase(string input)
         {
-            var result = string.Join(" ", PascalCaseWordPartsRegex
-                .Matches(input).Cast<Match>()
-                .Select(match => match.Value.ToCharArray().All(char.IsUpper) &&
-                    (match.Value.Length > 1 || (match.Index > 0 && input[match.Index - 1] == ' ') || match.Value == "I")
-                    ? match.Value
-                    : match.Value.ToLower()));
+            var index = 0;
+            var buffer = ArrayPool<char>.Shared.Rent(input.Length * 2);
+            var bufferSpan = buffer.AsSpan();
+            var inputSpan = input.AsSpan();
 
-            return result.Length > 0 ? char.ToUpper(result[0]) +
-                result.Substring(1, result.Length - 1) : result;
+            foreach (Match match in PascalCaseWordPartsRegex.Matches(input))
+            {
+                var subSpan = bufferSpan.Slice(index);
+                var slice = inputSpan.Slice(match.Index, match.Length);
+                if (IsAllUpper(slice) && (match.Length > 1 || (match.Index > 0 && inputSpan[match.Index - 1] == ' ') || match.Value == "I"))
+                    slice.CopyTo(subSpan);
+                else
+                    CopyToLower(slice, subSpan);
+                subSpan[slice.Length] = ' ';
+                index += slice.Length + 1;
+            }
+
+            string result;
+            if (index > 0)
+            {
+                bufferSpan[0] = char.ToUpper(bufferSpan[0]);
+                result = new string(buffer, 0, index - 1);
+            }
+            else
+            {
+                result = string.Empty;
+            }
+
+            ArrayPool<char>.Shared.Return(buffer);
+            return result;
+
+            //var parts = PascalCaseWordPartsRegex
+            //    .Matches(input).Cast<Match>()
+            //    .Select(match => match.Value.ToCharArray().All(char.IsUpper) &&
+            //        (match.Value.Length > 1 || (match.Index > 0 && input[match.Index - 1] == ' ') || match.Value == "I")
+            //        ? match.Value
+            //        : match.Value.ToLower());
+
+            //var result = string.Join(" ", parts);
+
+            //return result.Length > 0 ? char.ToUpper(result[0]) +
+            //    result.Substring(1, result.Length - 1) : result;
+        }
+
+        private static bool IsAllUpper(ReadOnlySpan<char> input)
+        {
+            for (var i = 0; i < input.Length; i++)
+                if (!char.IsUpper(input[i]))
+                    return false;
+            return true;
+        }
+
+        private static bool IsFreestandingSpacing(ReadOnlySpan<char> input)
+        {
+            for (var i = 0; i < input.Length; i++)
+                if (input[i] == '_' || input[i] == '-')
+                    if ((i > 0 && input[i - 1] == ' ') || (i < input.Length - 1 && input[i + 1] == ' '))
+                        return true;
+            return false;
+        }
+
+        private static void CopyToLower(ReadOnlySpan<char> source, Span<char> target)
+        {
+            for (var i = 0; i < source.Length; i++)
+                target[i] = char.ToLower(source[i]);
         }
 
         /// <summary>
@@ -43,22 +109,24 @@ namespace Humanizer
         /// <returns></returns>
         public static string Humanize(this string input)
         {
+            var inputSpan = input.AsSpan();
+
             // if input is all capitals (e.g. an acronym) then return it without change
-            if (input.ToCharArray().All(char.IsUpper))
+            if (IsAllUpper(inputSpan))
             {
                 return input;
             }
 
             // if input contains a dash or underscore which preceeds or follows a space (or both, e.g. free-standing)
             // remove the dash/underscore and run it through FromPascalCase
-            if (FreestandingSpacingCharRegex.IsMatch(input))
+            if (IsFreestandingSpacing(inputSpan))
             {
-                return FromPascalCase(FromUnderscoreDashSeparatedWords(input));
+                return FromPascalCase(FromUnderscoreDashSeparatedWords(inputSpan));
             }
 
             if (input.Contains("_") || input.Contains("-"))
             {
-                return FromUnderscoreDashSeparatedWords(input);
+                return FromUnderscoreDashSeparatedWords(inputSpan);
             }
 
             return FromPascalCase(input);
