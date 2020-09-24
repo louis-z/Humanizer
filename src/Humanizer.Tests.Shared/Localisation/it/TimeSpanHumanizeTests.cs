@@ -78,6 +78,30 @@ namespace Humanizer.Tests.Localisation.it
             Assert.Equal(expected, TimeSpan.FromMilliseconds(milliseconds).Humanize());
         }
 
+        [Theory]
+        [InlineData(4, "4 giorni")]
+        [InlineData(23, "3 settimane")]
+        [InlineData(64, "2 mesi")]
+        [InlineData(367, "1 anno")]
+        [InlineData(750, "2 anni")]
+        public void Age(int days, string expected)
+        {
+            var actual = TimeSpan.FromDays(days).ToAge();
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(4, "")]
+        [InlineData(23, "")]
+        [InlineData(64, "")]
+        [InlineData(367, "")]
+        [InlineData(750, "")]
+        public void HyphenatedAge(int days, string expected)
+        {
+            var actual = TimeSpan.FromDays(days).ToHyphenatedAge();
+            Assert.Equal(expected, actual);
+        }
+
         [Fact]
         public void NoTime()
         {

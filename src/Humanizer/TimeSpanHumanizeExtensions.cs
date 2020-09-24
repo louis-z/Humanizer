@@ -53,6 +53,22 @@ namespace Humanizer
             return ConcatenateTimeSpanParts(timeParts, culture, collectionSeparator);
         }
 
+        public static string ToAge(this TimeSpan timeSpan, CultureInfo culture = null)
+        {
+            var ageExpression = timeSpan.Humanize(maxUnit: TimeUnit.Year);
+            if ((culture ?? CultureInfo.CurrentUICulture).TwoLetterISOLanguageName.Equals("en", StringComparison.Ordinal))
+                ageExpression += " old";
+            return ageExpression;
+        }
+
+        public static string ToHyphenatedAge(this TimeSpan timeSpan, CultureInfo culture = null)
+        {
+            if (!((culture ?? CultureInfo.CurrentUICulture).TwoLetterISOLanguageName.Equals("en", StringComparison.Ordinal)))
+                return string.Empty;
+            var ageExpression = timeSpan.Humanize(maxUnit: TimeUnit.Year);
+            return (ageExpression.Singularize() + " old").Replace(' ', '-');
+        }
+
         private static IEnumerable<string> CreateTheTimePartsWithUpperAndLowerLimits(TimeSpan timespan, CultureInfo culture, TimeUnit maxUnit, TimeUnit minUnit, bool toWords = false)
         {
             var cultureFormatter = Configurator.GetFormatter(culture);
@@ -62,7 +78,7 @@ namespace Humanizer
 
             foreach (var timeUnitType in timeUnitsEnumTypes)
             {
-                var timepart = GetTimeUnitPart(timeUnitType,timespan, maxUnit, minUnit, cultureFormatter, toWords); 
+                var timepart = GetTimeUnitPart(timeUnitType, timespan, maxUnit, minUnit, cultureFormatter, toWords);
 
                 if (timepart != null || firstValueFound)
                 {
