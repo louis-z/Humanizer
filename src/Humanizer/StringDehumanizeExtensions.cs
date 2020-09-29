@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace Humanizer
 {
@@ -16,16 +14,8 @@ namespace Humanizer
         /// <returns></returns>
         public static string Dehumanize(this string input)
         {
-            var strBuilder = new StringBuilder();
-            var span = input.AsSpan();
-            var wordEnumerator = new WordEnumerator(span);
-
-            foreach (var word in wordEnumerator)
-            {
-                strBuilder.Append(word.ToString().Humanize(LetterCasing.Title));
-            }
-
-            return strBuilder.ToString().Replace(" ", "");
+            var titlizedWords = input.Split(' ').Select(word => word.Humanize(LetterCasing.Title));
+            return string.Join("", titlizedWords).Replace(" ", "");
         }
     }
 }

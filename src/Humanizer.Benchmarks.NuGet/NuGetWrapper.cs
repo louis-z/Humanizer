@@ -2,7 +2,7 @@
 {
     public static class NuGetWrapper
     {
-        public static string HumanizeStr(string str)
+        public static string Humanize(string str)
         {
             return str.Humanize();
         }

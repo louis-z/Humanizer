@@ -53,15 +53,15 @@ aliquam sem. Habitant morbi tristique senectus et netus et malesuada. Consectetu
 sollicitudin nibh sit amet commodo.";
 
         [Benchmark(Baseline = true)]
-        public void HumanizeWithNuGet()
+        public void NuGetHumanize()
         {
-            var humanizedStr = NuGetWrapper.HumanizeStr(MyText);
+            var humanizedStr = NuGetWrapper.Humanize(MyText);
         }
 
         [Benchmark]
-        public void HumanizeWithLocal()
+        public void LocalHumanize()
         {
-            var humanizedStr = LocalWrapper.HumanizeStr(MyText);
+            var humanizedStr = LocalWrapper.Humanize(MyText);
         }
     }
 }

@@ -65,18 +65,6 @@ namespace Humanizer
 
             ArrayPool<char>.Shared.Return(buffer);
             return result;
-
-            //var parts = PascalCaseWordPartsRegex
-            //    .Matches(input).Cast<Match>()
-            //    .Select(match => match.Value.ToCharArray().All(char.IsUpper) &&
-            //        (match.Value.Length > 1 || (match.Index > 0 && input[match.Index - 1] == ' ') || match.Value == "I")
-            //        ? match.Value
-            //        : match.Value.ToLower());
-
-            //var result = string.Join(" ", parts);
-
-            //return result.Length > 0 ? char.ToUpper(result[0]) +
-            //    result.Substring(1, result.Length - 1) : result;
         }
 
         private static bool IsAllUpper(ReadOnlySpan<char> input)
