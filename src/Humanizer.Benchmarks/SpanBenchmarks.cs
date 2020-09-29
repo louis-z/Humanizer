@@ -7,7 +7,7 @@ namespace HumanizerBenchmarks
     [MemoryDiagnoser]
     public class SpanBenchmarks
     {
-        private const string MyText = @"
+        internal const string TextToHumanize = @"
 Lorem IPSUM DOLOR SIT AMET, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
 aliqua. Turpis egestas sed tempus urna. Vel pharetra vel turpis nunc eget lorem dolor. A diam sollicitudin tempor id
 eu nisl. Nunc scelerisque viverra mauris in aliquam. Massa eget egestas purus viverra accumsan in. Fermentum et
@@ -22,11 +22,11 @@ Viverra nibh cras pulvinar mattis. Lorem mollis aliquam ut porttitor. Tellus in 
 rhoncus est pellentesque. Sed cras ornare arcu dui vivamus arcu-Felis. Blandit Volutpat MAECENAS voLutpat blandit
 aliquam etiam erat velit. Eu augue ut lectus arcu bibendum at varius vel pharetra. Senectus et netus et malesuada fames
 ac turpis. At volutpat diam ut venenatis. Adipiscing at in tellus integer feugiat scelerisque. Diam- quis enim lobortis
-scelerisque fermentum dui faucibus in. Nibh tellus molestie nunc non. Phasellus faucibus scelerisque -eleifend donec.
-Porta nibh venenatis cras sed. Consequat id porta nibh venenatis. Leo vel fringilla est ullamcorper eget.
+scelerisque fermentum dui faucibus in. Nibh tellus molestie __nunc non. Phasellus faucibus scelerisque -eleifend donec.
+Porta nibh venenatis cras sed. Consequat id porta nibh venenatis. _ - _ Leo vel fringilla est ullamcorper eget.
 
 Cursus mattis molestie a iaculis at erat pellentesque adipiscing. Non enim praesent elementum facilisis leo vel
-fringilla est ullamcorper. Augue interdum velit euismod in pellentesque massa placerat. Habitasse platea dictumst
+fringilla est ullamcorper. Augue interdum velit euismod in pellentesque _ - _ massa placerat. Habitasse platea dictumst
 quisque sagittis purus sit amet volutpat consequat. Volutpat est velit egestas dui id. Neque laoreet suspendisse
 interdum consectetur. Nunc aliquet bibendum enim facilisis. Curabitur gravida arcu ac tortor dignissim convallis aenean
 et tortor. Sagittis nisl rhoncus mattis rhoncus urna neque viverra justo. Amet nisl purus in mollis nunc_sed id_ semper.
@@ -48,20 +48,14 @@ odio. Vitae sapien pellentesque habitant morbi tristique senectus et netus et. A
 egestas quis. In ornare quam viverra orci sagittis eu volutpat odio facilisis. Nec tincidunt praesent semper feugiat
 nibh sed pulvinar proin. Condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Ac turpis egestas
 maecenas pharetra convallis posuere morbi leo urna. Proin sagittis nisl rhoncus mattis rhoncus urna neque. Nisi lacus
-sed viverra tellus. Euismod quis viverra nibh cras pulvinar mattis nunc sed blandit. Scelerisque viverra mauris in
+sed viverra tellus. Euismod quis viverra nibh cras pulvinar mattis nunc sed _ - _ BLANDIT. Scelerisque viverra mauris in
 aliquam sem. Habitant morbi tristique senectus et netus et malesuada. Consectetur adipiscing elit duis tristique
 sollicitudin nibh sit amet commodo.";
 
         [Benchmark(Baseline = true)]
-        public void NuGetHumanize()
-        {
-            var humanizedStr = NuGetWrapper.Humanize(MyText);
-        }
+        public string NuGetHumanize() => NuGetWrapper.Humanize(TextToHumanize);
 
         [Benchmark]
-        public void LocalHumanize()
-        {
-            var humanizedStr = LocalWrapper.Humanize(MyText);
-        }
+        public string LocalHumanize() => LocalWrapper.Humanize(TextToHumanize);
     }
 }
