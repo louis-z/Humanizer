@@ -1,18 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFrameworks>net48</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+    <ProjectReference Include="..\Humanizer\Humanizer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Humanizer\Humanizer.csproj" />
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.16.1">
+        <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

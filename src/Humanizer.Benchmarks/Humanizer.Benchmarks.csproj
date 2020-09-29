@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+    <Deterministic>false</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Humanizer.Benchmarks.Local\Humanizer.Benchmarks.Local.csproj" />
+    <ProjectReference Include="..\Humanizer.Benchmarks.NuGet\Humanizer.Benchmarks.NuGet.csproj" />
+  </ItemGroup>
+
+</Project>

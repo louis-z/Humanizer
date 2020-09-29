@@ -86,6 +86,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks.NuGet"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks.Local", "Humanizer.Benchmarks.Local\Humanizer.Benchmarks.Local.csproj", "{5DE46832-29AF-428B-95FA-369FBB3681D8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Humanizer.Benchmarks", "Humanizer.Benchmarks\Humanizer.Benchmarks.csproj", "{EB3A0B22-75D7-4E3F-9270-808797EACAB5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Humanizer.Tests.Shared\Humanizer.Tests.Shared.projitems*{fdec244b-f07e-4a5e-bb80-fbc6ac77a9aa}*SharedItemsImports = 13
@@ -165,6 +167,22 @@ Global
 		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x64.Build.0 = Release|Any CPU
 		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x86.ActiveCfg = Release|Any CPU
 		{5DE46832-29AF-428B-95FA-369FBB3681D8}.Release|x86.Build.0 = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|ARM.Build.0 = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|ARM.Build.0 = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|x64.Build.0 = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB3A0B22-75D7-4E3F-9270-808797EACAB5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

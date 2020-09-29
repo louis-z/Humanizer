@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Humanizer;
+using Humanizer.Benchmarks.Local;
+using Humanizer.Benchmarks.NuGet;
 
 namespace HumanizerBenchmarks
 {
@@ -52,9 +53,15 @@ aliquam sem. Habitant morbi tristique senectus et netus et malesuada. Consectetu
 sollicitudin nibh sit amet commodo.";
 
         [Benchmark(Baseline = true)]
-        public void Humanize()
+        public void HumanizeWithNuGet()
         {
-            MyText.Humanize();
+            var humanizedStr = NuGetWrapper.HumanizeStr(MyText);
+        }
+
+        [Benchmark]
+        public void HumanizeWithLocal()
+        {
+            var humanizedStr = LocalWrapper.HumanizeStr(MyText);
         }
     }
 }
