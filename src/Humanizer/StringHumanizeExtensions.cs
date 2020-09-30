@@ -24,38 +24,33 @@ namespace Humanizer
                     buffer[i] = ' ';
         }
 
-        private static string FromPascalCase(string input)
+        private static string FromPascalCase(string input, char[] buffer)
         {
             var index = 0;
-            var buffer = ArrayPool<char>.Shared.Rent(input.Length * 2);
-            var bufferSpan = buffer.AsSpan();
             var inputSpan = input.AsSpan();
+            var outputSpan = buffer.AsSpan();
 
             foreach (Match match in PascalCaseWordPartsRegex.Matches(input))
             {
-                var subSpan = bufferSpan.Slice(index);
-                var slice = inputSpan.Slice(match.Index, match.Length);
-                if (IsAllUpper(slice) && (match.Length > 1 || (match.Index > 0 && inputSpan[match.Index - 1] == ' ') || match.Value == "I"))
-                    slice.CopyTo(subSpan);
+                var matchSlice = inputSpan.Slice(match.Index, match.Length);
+                var outputSlice = outputSpan.Slice(index);
+
+                if (IsAllUpper(matchSlice) && (match.Length > 1 || (match.Index > 0 && inputSpan[match.Index - 1] == ' ') || match.Value == "I"))
+                    matchSlice.CopyTo(outputSlice);
                 else
-                    CopyToLower(slice, subSpan);
-                subSpan[slice.Length] = ' ';
-                index += slice.Length + 1;
+                    CopyToLower(matchSlice, outputSlice);
+
+                outputSlice[matchSlice.Length] = ' ';
+                index += matchSlice.Length + 1;
             }
 
-            string result;
             if (index > 0)
             {
-                bufferSpan[0] = char.ToUpper(bufferSpan[0]);
-                result = new string(buffer, 0, index - 1);
-            }
-            else
-            {
-                result = string.Empty;
+                buffer[0] = char.ToUpper(buffer[0]);
+                return new string(buffer, 0, index - 1);
             }
 
-            ArrayPool<char>.Shared.Return(buffer);
-            return result;
+            return string.Empty;
         }
 
         private static bool IsAllUpper(ReadOnlySpan<char> input)
@@ -98,27 +93,29 @@ namespace Humanizer
 
             // if input contains a dash or underscore which preceeds or follows a space (or both, e.g. free-standing)
             // remove the dash/underscore and run it through FromPascalCase
+            var buffer = ArrayPool<char>.Shared.Rent(inputSpan.Length * 2);
+            string result;
             if (IsFreestandingSpacing(inputSpan))
             {
-                var buffer = ArrayPool<char>.Shared.Rent(inputSpan.Length);
                 inputSpan.CopyTo(buffer);
                 FromUnderscoreDashSeparatedWords(buffer);
-                var result = FromPascalCase(new string(buffer, 0, inputSpan.Length));
+                result = FromPascalCase(new string(buffer, 0, inputSpan.Length), buffer);
                 ArrayPool<char>.Shared.Return(buffer);
                 return result;
             }
 
             if (input.Contains("_") || input.Contains("-"))
             {
-                var buffer = ArrayPool<char>.Shared.Rent(inputSpan.Length);
                 inputSpan.CopyTo(buffer);
                 FromUnderscoreDashSeparatedWords(buffer);
-                var result = new string(buffer, 0, inputSpan.Length);
+                result = new string(buffer, 0, inputSpan.Length);
                 ArrayPool<char>.Shared.Return(buffer);
                 return result;
             }
 
-            return FromPascalCase(input);
+            result = FromPascalCase(input, buffer);
+            ArrayPool<char>.Shared.Return(buffer);
+            return result;
         }
 
         /// <summary>
