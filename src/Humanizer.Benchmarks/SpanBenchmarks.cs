@@ -31,7 +31,7 @@ quisque sagittis purus sit amet volutpat consequat. Volutpat est velit egestas d
 interdum consectetur. Nunc aliquet bibendum enim facilisis. Curabitur gravida arcu ac tortor dignissim convallis aenean
 et tortor. Sagittis nisl rhoncus mattis rhoncus urna neque viverra justo. Amet nisl purus in mollis nunc_sed id_ semper.
 Enim blandit volutpat maecenas volutpat blandit aliquam. Mauris pharetra et ultrices neque ornare aenean. Et _leo duis ut
-diam quam. In nisl nisi scelerisque eu ultrices. Felis eget nunc lobortis mattis aliquam. Faucibus a pellentesque sit
+diam quam. In nisl nisi scelerisque eu ultrices. FelisEgetNuncLobortisMattisAliquam. Faucibus a pellentesque sit
 amet porttitor eget dolor morbi. Sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque eu. Odio ut
 enim blandit volutpat maecenas volutpat blandit. Diam sollicitudin tempor id eu nisl nunc mi.
 
@@ -50,7 +50,7 @@ nibh sed pulvinar proin. Condimentum id venenatis a condimentum vitae sapien pel
 maecenas pharetra convallis posuere morbi leo urna. Proin sagittis nisl rhoncus mattis rhoncus urna neque. Nisi lacus
 sed viverra tellus. Euismod quis viverra nibh cras pulvinar mattis nunc sed _ - _ BLANDIT. Scelerisque viverra mauris in
 aliquam sem. Habitant morbi tristique senectus et netus et malesuada. Consectetur adipiscing elit duis tristique
-sollicitudin nibh sit amet commodo.";
+sollicitudinNibhSitAmetCommodo.";
 
         [Benchmark(Baseline = true)]
         public string NuGetHumanize() => NuGetWrapper.Humanize(TextToHumanize);

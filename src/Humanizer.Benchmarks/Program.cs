@@ -18,7 +18,7 @@ namespace HumanizerBenchmarks
             if (localHumanizedStr.Equals(nuGetHumanizedStr, StringComparison.Ordinal))
             {
                 Console.WriteLine();
-                Console.WriteLine("*** Results in ***");
+                Console.WriteLine("*** Yields ***");
                 Console.WriteLine();
                 Console.WriteLine(localHumanizedStr);
             }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Buffers;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Humanizer
@@ -18,19 +17,11 @@ namespace Humanizer
                 RegexOptions.IgnorePatternWhitespace | RegexOptions.ExplicitCapture | RegexOptionsUtil.Compiled);
         }
 
-        private static string FromUnderscoreDashSeparatedWords(ReadOnlySpan<char> input)
+        private static void FromUnderscoreDashSeparatedWords(char[] buffer)
         {
-            var buffer = ArrayPool<char>.Shared.Rent(input.Length);
-            try
-            {
-                for (var i = 0; i < input.Length; i++)
-                    buffer[i] = (input[i] == '_' || input[i] == '-') ? ' ' : input[i];
-                return new string(buffer, 0, input.Length);
-            }
-            finally
-            {
-                ArrayPool<char>.Shared.Return(buffer);
-            }
+            for (var i = 0; i < buffer.Length; i++)
+                if (buffer[i] == '_' || buffer[i] == '-')
+                    buffer[i] = ' ';
         }
 
         private static string FromPascalCase(string input)
@@ -109,12 +100,22 @@ namespace Humanizer
             // remove the dash/underscore and run it through FromPascalCase
             if (IsFreestandingSpacing(inputSpan))
             {
-                return FromPascalCase(FromUnderscoreDashSeparatedWords(inputSpan));
+                var buffer = ArrayPool<char>.Shared.Rent(inputSpan.Length);
+                inputSpan.CopyTo(buffer);
+                FromUnderscoreDashSeparatedWords(buffer);
+                var result = FromPascalCase(new string(buffer, 0, inputSpan.Length));
+                ArrayPool<char>.Shared.Return(buffer);
+                return result;
             }
 
             if (input.Contains("_") || input.Contains("-"))
             {
-                return FromUnderscoreDashSeparatedWords(inputSpan);
+                var buffer = ArrayPool<char>.Shared.Rent(inputSpan.Length);
+                inputSpan.CopyTo(buffer);
+                FromUnderscoreDashSeparatedWords(buffer);
+                var result = new string(buffer, 0, inputSpan.Length);
+                ArrayPool<char>.Shared.Return(buffer);
+                return result;
             }
 
             return FromPascalCase(input);
