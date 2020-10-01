@@ -13,7 +13,7 @@ namespace Humanizer
 
         static StringHumanizeExtensions()
         {
-            PascalCaseWordPartsRegex = new Regex(@"[\p{Lu}]?[\p{Ll}]+|[0-9]+[\p{Ll}]*|[\p{Lu}]+(?=[\p{Lu}][\p{Ll}]|[0-9]|\b)|[\p{Lo}]+",
+            PascalCaseWordPartsRegex = new Regex(@"\p{Lu}?\p{Ll}+|[0-9]+\p{Ll}*|\p{Lu}+(?=\p{Lu}\p{Ll}|[0-9]|\b)|\p{Lo}+",
                 RegexOptions.IgnorePatternWhitespace | RegexOptions.ExplicitCapture | RegexOptionsUtil.Compiled);
             FreestandingSpacingCharRegex = new Regex(@"\s[-_]|[-_]\s", RegexOptionsUtil.Compiled);
         }
@@ -25,6 +25,10 @@ namespace Humanizer
 
         private static string FromPascalCase(string input)
         {
+            foreach (Match match in PascalCaseWordPartsRegex.Matches(input))
+            {
+            }
+            
             var result = string.Join(" ", PascalCaseWordPartsRegex
                 .Matches(input).Cast<Match>()
                 .Select(match => match.Value.ToCharArray().All(char.IsUpper) &&
