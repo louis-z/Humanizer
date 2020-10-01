@@ -11,9 +11,14 @@ namespace Humanizer
         private static readonly Regex PascalCaseWordPartsRegex;
         private static readonly Regex FreestandingSpacingCharRegex;
 
+        private const string CapitalizedWord = @"\p{Lu}?\p{Ll}+";
+        private const string IntegerAndOptionalLowercaseLetters = @"[0-9]+\p{Ll}*";
+        private const string Acronym = @"\p{Lu}+(?=\p{Lu}\p{Ll}|[0-9]|\b)";
+        private const string SequenceOfOtherLetters = @"\p{Lo}+";
+
         static StringHumanizeExtensions()
         {
-            PascalCaseWordPartsRegex = new Regex(@"\p{Lu}?\p{Ll}+|[0-9]+\p{Ll}*|\p{Lu}+(?=\p{Lu}\p{Ll}|[0-9]|\b)|\p{Lo}+",
+            PascalCaseWordPartsRegex = new Regex(@$"{CapitalizedWord}|{IntegerAndOptionalLowercaseLetters}|{Acronym}|{SequenceOfOtherLetters}",
                 RegexOptions.IgnorePatternWhitespace | RegexOptions.ExplicitCapture | RegexOptionsUtil.Compiled);
             FreestandingSpacingCharRegex = new Regex(@"\s[-_]|[-_]\s", RegexOptionsUtil.Compiled);
         }
