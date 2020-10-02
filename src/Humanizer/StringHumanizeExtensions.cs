@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Humanizer
@@ -30,16 +31,19 @@ namespace Humanizer
 
         private static string FromPascalCase(string input)
         {
+            var list = new List<string>();
             foreach (Match match in PascalCaseWordPartsRegex.Matches(input))
             {
+                string word;
+                if (match.Value.ToCharArray().All(char.IsUpper) &&
+                    (match.Value.Length > 1 || (match.Index > 0 && input[match.Index - 1] == ' ') || match.Value == "I"))
+                    word = match.Value;
+                else
+                    word = match.Value.ToLower();
+                list.Add(word);
             }
-            
-            var result = string.Join(" ", PascalCaseWordPartsRegex
-                .Matches(input).Cast<Match>()
-                .Select(match => match.Value.ToCharArray().All(char.IsUpper) &&
-                    (match.Value.Length > 1 || (match.Index > 0 && input[match.Index - 1] == ' ') || match.Value == "I")
-                    ? match.Value
-                    : match.Value.ToLower()));
+
+            var result = string.Join(" ", list);
 
             return result.Length > 0 ? char.ToUpper(result[0]) +
                 result.Substring(1, result.Length - 1) : result;
