@@ -1,6 +1,5 @@
 ﻿using System;
 using Humanizer.Localisation;
-
 using Xunit;
 
 namespace Humanizer.Tests.Localisation.fr
@@ -8,9 +7,8 @@ namespace Humanizer.Tests.Localisation.fr
     [UseCulture("fr")]
     public class TimeSpanHumanizeTests
     {
-
         [Theory]
-        [Trait("Translation", "Google")]
+        [Trait("Translation", "Native speaker")]
         [InlineData(366, "1 an")]
         [InlineData(731, "2 ans")]
         [InlineData(1096, "3 ans")]
@@ -21,7 +19,7 @@ namespace Humanizer.Tests.Localisation.fr
         }
 
         [Theory]
-        [Trait("Translation", "Google")]
+        [Trait("Translation", "Native speaker")]
         [InlineData(31, "1 mois")]
         [InlineData(61, "2 mois")]
         [InlineData(92, "3 mois")]
